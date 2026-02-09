@@ -10,12 +10,13 @@ public sealed class TextLineReaderTests
     [Fact]
     public async Task Split_ReturnsSingleSectionWithTrimmedLines()
     {
-        const string input = """
-                             [[ ## FIRST ## ]]
-                             line one
+        const string input =
+            """
+            [[ ## FIRST ## ]]
+            line one
 
-                               line two   
-                             """;
+              line two   
+            """;
 
         var result = await ReadAll(input);
 
@@ -30,13 +31,14 @@ public sealed class TextLineReaderTests
     [Fact]
     public async Task Split_HandlesMultipleSections()
     {
-        const string input = """
-                             [[ ## ALPHA ## ]]
-                             a1
-                             a2
-                             [[ ## BETA ## ]]
-                             b1
-                             """;
+        const string input =
+            """
+            [[ ## ALPHA ## ]]
+            a1
+            a2
+            [[ ## BETA ## ]]
+            b1
+            """;
 
         var result = await ReadAll(input);
 
@@ -56,10 +58,11 @@ public sealed class TextLineReaderTests
     [Fact]
     public async Task Split_WhenNoHeader_UsesEmptyKey()
     {
-        const string input = """
-                             lone line
-                             another line
-                             """;
+        const string input =
+            """
+            lone line
+            another line
+            """;
 
         var result = await ReadAll(input);
 
@@ -71,10 +74,14 @@ public sealed class TextLineReaderTests
             });
     }
 
-    private static async Task<List<KeyValuePair<string, string>>> ReadAll(string input, Func<string, string?>? matcher = default, CancellationToken token = default)
+    private static async Task<List<KeyValuePair<string, string>>> ReadAll(
+        string input,
+        Func<string, string?>? matcher = default,
+        CancellationToken token = default)
     {
+        matcher ??= MatchHeader;
         var result = new List<KeyValuePair<string, string>>();
-        await foreach (var pair in TextLineReader.Split(input, matcher ?? MatchHeader, token))
+        await foreach (var pair in TextLineReader.Split(input, matcher, token))
         {
             result.Add(pair);
         }
