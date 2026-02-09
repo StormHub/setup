@@ -4,7 +4,7 @@ using WebApi.Hosting;
 IHost? host = default;
 try
 {
-    host = AppHostBuilder.Build(args);
+    host = ApiHostBuilder.Build(args);
     await host.RunAsync();
 }
 catch (Exception ex)

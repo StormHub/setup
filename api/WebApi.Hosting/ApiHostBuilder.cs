@@ -6,7 +6,7 @@ using WebApi.Hosting.GetWeatherForecast;
 
 namespace WebApi.Hosting;
 
-internal static class AppHostBuilder
+internal static class ApiHostBuilder
 {
     public static IHost Build(string[] args)
     {
