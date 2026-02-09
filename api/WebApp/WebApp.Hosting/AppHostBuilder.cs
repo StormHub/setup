@@ -18,8 +18,17 @@ internal static class AppHostBuilder
                 options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
         builder.Services.AddMediator(typeof(Program).Assembly);
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Services.AddOpenApi();
+        }
 
         var app = builder.Build();
+        if (app.Environment.IsDevelopment())
+        {
+            // Exposes the OpenAPI document at /openapi/v1.json 
+            app.MapOpenApi();
+        }
         
         app.MapGet("/weatherforecast",
             async ([AsParameters] GetWeatherForecastQuery query, [FromServices] IMediator mediator, CancellationToken token) =>
