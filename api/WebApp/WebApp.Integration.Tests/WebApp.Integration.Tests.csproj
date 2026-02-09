@@ -20,9 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="**\*.verified.txt">
+        <None Include="**\*.verified.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
+        </None>
     </ItemGroup>
     
     <ItemGroup>
