@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace ConsoleApp.Hosting;
@@ -19,7 +20,8 @@ internal static class ConsoleHostBuilder
                 builder.AddEnvironmentVariables();
             })
         .ConfigureServices((_, services) =>
-            {
-            })
+        {
+            services.AddTransient<TextParser>();
+        })
         .Build();
 }
