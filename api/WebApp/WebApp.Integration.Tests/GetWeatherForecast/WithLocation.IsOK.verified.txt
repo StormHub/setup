@@ -1,0 +1,5 @@
+﻿{
+  location: brisbane,
+  temperature: 20.5,
+  feelsLike: Warm
+}
