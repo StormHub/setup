@@ -1,6 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+using WebApp.Hosting;
 
-app.Run();
+IHost? host = default;
+try
+{
+    host = AppHostBuilder.Build(args);
+    await host.RunAsync();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Host terminated unexpectedly! \n{ex}");
+}
+finally
+{
+    host?.Dispose();
+}
