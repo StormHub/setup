@@ -1,9 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="../../shared/App.Shared/App.Shared.csproj" />
-    <Project Path="WebApp.Hosting/WebApp.Hosting.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="WebApp.Integration.Tests/WebApp.Integration.Tests.csproj" />
-  </Folder>
-</Solution>

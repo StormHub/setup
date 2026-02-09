@@ -24,9 +24,9 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-    
-    <ItemGroup>
-      <ProjectReference Include="..\WebApp.Hosting\WebApp.Hosting.csproj" />
-    </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\WebApi.Hosting\WebApi.Hosting.csproj" />
+    </ItemGroup>
+    
 </Project>

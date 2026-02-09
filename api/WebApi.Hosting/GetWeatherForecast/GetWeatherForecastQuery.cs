@@ -1,7 +1,7 @@
 using App.Shared.Messaging;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.Hosting.GetWeatherForecast;
+namespace WebApi.Hosting.GetWeatherForecast;
 
 public sealed class GetWeatherForecastQuery : IQuery<GetWeatherForecastQueryResponse>
 {

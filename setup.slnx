@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/api/">
+    <Project Path="api/WebApi.Hosting/WebApi.Hosting.csproj" />
+    <Project Path="api/WebApi.Integration.Tests/WebApi.Integration.Tests.csproj" />
+  </Folder>
+  <Project Path="shared/App.Shared/App.Shared.csproj" />
+</Solution>

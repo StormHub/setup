@@ -2,9 +2,9 @@ using System.Text.Json.Serialization;
 using App.Shared;
 using App.Shared.Messaging;
 using Microsoft.AspNetCore.Mvc;
-using WebApp.Hosting.GetWeatherForecast;
+using WebApi.Hosting.GetWeatherForecast;
 
-namespace WebApp.Hosting;
+namespace WebApi.Hosting;
 
 internal static class AppHostBuilder
 {

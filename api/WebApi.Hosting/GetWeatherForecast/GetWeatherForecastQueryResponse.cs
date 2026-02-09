@@ -1,6 +1,6 @@
 using App.Shared.Messaging;
 
-namespace WebApp.Hosting.GetWeatherForecast;
+namespace WebApi.Hosting.GetWeatherForecast;
 
 public sealed class GetWeatherForecastQueryResponse : IQueryResponse
 {

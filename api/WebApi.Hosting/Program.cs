@@ -1,5 +1,5 @@
 
-using WebApp.Hosting;
+using WebApi.Hosting;
 
 IHost? host = default;
 try

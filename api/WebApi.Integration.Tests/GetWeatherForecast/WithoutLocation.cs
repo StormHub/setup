@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace WebApp.Integration.Tests.GetWeatherForecast;
+namespace WebApi.Integration.Tests.GetWeatherForecast;
 
 public sealed class WithoutLocation(WebAppFixture fixture) : IClassFixture<WebAppFixture>
 {

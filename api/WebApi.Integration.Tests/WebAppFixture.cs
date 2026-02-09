@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace WebApp.Integration.Tests;
+namespace WebApi.Integration.Tests;
 
 public sealed class WebAppFixture : IAsyncLifetime
 {
