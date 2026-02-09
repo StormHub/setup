@@ -9,5 +9,8 @@ public sealed class WithLocation(WebAppFixture fixture) : IClassFixture<WebAppFi
     {
         var response = await fixture.HttpClient.GetAsync("/weatherforecast?location=brisbane");
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        
+        var json = await response.Content.ReadAsStringAsync();
+        await VerifyJson(json);
     }
 }
