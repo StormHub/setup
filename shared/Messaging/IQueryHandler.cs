@@ -1,4 +1,4 @@
-namespace App.Shared.Messaging;
+namespace Messaging;
 
 public interface IQueryHandler<in TQuery, TResponse>
     where TQuery : IQuery<TResponse>

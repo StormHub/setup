@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace App.Shared.Messaging;
+namespace Messaging;
 
 internal sealed class Mediator(IServiceProvider provider) : IMediator
 {

@@ -1,5 +1,4 @@
-﻿using App.Shared.Messaging;
-using ConsoleApp.Hosting;
+﻿using ConsoleApp.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -12,8 +11,6 @@ try
     var lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
 
     await using var scope = host.Services.CreateAsyncScope();
-    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-    Console.WriteLine($"{nameof(mediator)} can be resolved {mediator}");
     lifetime.StopApplication();
 
     await host.WaitForShutdownAsync(lifetime.ApplicationStopping);

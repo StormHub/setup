@@ -21,8 +21,4 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\shared\App.Shared\App.Shared.csproj" />
-    </ItemGroup>
-
 </Project>

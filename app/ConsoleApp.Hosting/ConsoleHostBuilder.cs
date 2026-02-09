@@ -1,4 +1,3 @@
-using App.Shared;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -21,7 +20,6 @@ internal static class ConsoleHostBuilder
             })
         .ConfigureServices((_, services) =>
             {
-                services.AddMediator(typeof(Program).Assembly);
             })
         .Build();
 }

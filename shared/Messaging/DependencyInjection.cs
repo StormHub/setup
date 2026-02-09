@@ -1,9 +1,8 @@
 using System.Reflection;
-using App.Shared.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace App.Shared;
+namespace Messaging;
 
 public static class DependencyInjection
 {

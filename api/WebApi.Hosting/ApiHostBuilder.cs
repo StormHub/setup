@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
-using App.Shared;
-using App.Shared.Messaging;
+using Messaging;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Hosting.GetWeatherForecast;
 

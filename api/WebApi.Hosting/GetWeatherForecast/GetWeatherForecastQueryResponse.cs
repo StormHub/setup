@@ -1,4 +1,4 @@
-using App.Shared.Messaging;
+using Messaging;
 
 namespace WebApi.Hosting.GetWeatherForecast;
 

@@ -1,4 +1,4 @@
-using App.Shared.Messaging;
+using Messaging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Hosting.GetWeatherForecast;

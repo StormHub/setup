@@ -1,4 +1,4 @@
-namespace App.Shared.Messaging;
+namespace Messaging;
 
 public interface ICommandHandler<in TCommand> where TCommand : ICommand
 {
