@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../../shared/App.Shared/App.Shared.csproj" />
   <Project Path="WebApp.Hosting/WebApp.Hosting.csproj" />
 </Solution>
