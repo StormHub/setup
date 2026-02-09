@@ -6,5 +6,7 @@
   <Folder Name="/app/">
     <Project Path="app/ConsoleApp.Hosting/ConsoleApp.Hosting.csproj" />
   </Folder>
-  <Project Path="shared/Messaging/Messaging.csproj" />
+  <Folder Name="/shared/">
+    <Project Path="shared/Messaging/Messaging.csproj" />
+  </Folder>
 </Solution>
