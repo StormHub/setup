@@ -1,6 +1,7 @@
 using System.Reflection;
 using App.Shared.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace App.Shared;
 
@@ -23,7 +24,7 @@ public static class DependencyInjection
 
                 foreach (var @interface in interfaces)
                 {
-                    services.AddTransient(@interface, type);
+                    services.TryAddTransient(@interface, type);
                 }
             }
         }
