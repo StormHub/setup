@@ -1,6 +1,6 @@
 namespace Simulator.Robots;
 
-public readonly record struct Position(int X, int Y)
+internal readonly record struct Position(int X, int Y)
 {
     public Position Move(Direction direction)
     {

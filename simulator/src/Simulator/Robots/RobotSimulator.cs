@@ -5,7 +5,12 @@ namespace Simulator.Robots;
 
 internal sealed class RobotSimulator
 {
-    private readonly Robot _robot = new(new Table());
+    private readonly Robot _robot;
+
+    public RobotSimulator()
+    {
+        _robot = new(new Table());
+    }
 
     public void Execute(params IEnumerable<ICommand> commands)
     {
@@ -17,5 +22,5 @@ internal sealed class RobotSimulator
 
     public string Query(IQuery query) => query.Execute(_robot);
 
-    public string Report() => _robot.Report();
+    internal string Report() => _robot.Report();
 }

@@ -1,42 +1,41 @@
-﻿using Simulator.Instructions;
-using Simulator.Instructions.Commands;
-using Simulator.Instructions.Queries;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Simulator;
+using Simulator.Instructions;
 using Simulator.Robots;
 
-var simulator = new RobotSimulator();
-var parser = new InputParser();
-
-Console.WriteLine("Toy Robot Simulator");
-Console.WriteLine("==================");
-Console.WriteLine("Commands: PLACE X,Y,DIRECTION | PLACE X,Y | MOVE | LEFT | RIGHT | REPORT | EXIT");
-Console.WriteLine();
-
-while (true)
+IHost? host = default;
+try
 {
-    Console.Write("> ");
-    var input = Console.ReadLine();
-
-    if (string.IsNullOrWhiteSpace(input))
-        continue;
-
-    if (input.Trim().Equals("EXIT", StringComparison.OrdinalIgnoreCase))
-        break;
-
-    var instruction = parser.Parse(input);
-    if (instruction != null)
-    {
-        switch (instruction)
+    host = Host.CreateDefaultBuilder(args)
+        .ConfigureAppConfiguration((context, builder) =>
         {
-            case ICommand command:
-                simulator.Execute(command);
-                break;
-            
-            case IQuery query:
-                var result = simulator.Query(query);
-                Console.WriteLine(result);
-                break;
-        }
-    }
-}
+            builder.AddJsonFile("appsettings.json", false);
+            builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true);
+        })
+        .ConfigureServices((_, services) =>
+        {
+            services.AddTransient<RobotSimulator>();
+            services.AddTransient<InputParser>();
+            services.AddTransient<ConsoleSimulator>();
+        })
+        .Build();
+    
+    await host.StartAsync();
+    var lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
 
-Console.WriteLine("Goodbye!");
+    await using var scope = host.Services.CreateAsyncScope();
+    var consoleSimulator = scope.ServiceProvider.GetRequiredService<ConsoleSimulator>();
+    consoleSimulator.Run(lifetime.ApplicationStopping);
+    
+    await host.WaitForShutdownAsync(lifetime.ApplicationStopping);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Host terminated unexpectedly! \n{ex}");
+}
+finally
+{
+    host?.Dispose();
+}
