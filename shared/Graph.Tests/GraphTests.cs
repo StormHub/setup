@@ -14,9 +14,9 @@ public sealed class GraphTests
         var result = nodes.Order();
         
         Assert.Collection(result,   
-            first => Assert.Equal('A', first.Value),
+            first => Assert.Equal('C', first.Value),
             second => Assert.Equal('B', second.Value),
-            third => Assert.Equal('C', third.Value));
+            third => Assert.Equal('A', third.Value));
     }
 
     [Fact]
@@ -33,9 +33,9 @@ public sealed class GraphTests
         var result = nodes.Order();
         
         Assert.Collection(result,   
-            first => Assert.Equal('D', first.Value),
-            second => Assert.Equal('C', second.Value),
-            third => Assert.Equal('B', third.Value),
-            fourth => Assert.Equal('A', fourth.Value));
+            first => Assert.Equal('A', first.Value),
+            second => Assert.Equal('B', second.Value),
+            third => Assert.Equal('C', third.Value),
+            fourth => Assert.Equal('D', fourth.Value));
     }
 }

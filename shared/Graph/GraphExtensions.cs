@@ -17,27 +17,35 @@ public readonly struct Node<T>(T value, IReadOnlyCollection<Node<T>> children) :
 
 public static class GraphExtensions
 {
-    public static IReadOnlyCollection<Node<T>> Order<T>(this IEnumerable<Node<T>> nodes)
+    extension<T>(IEnumerable<Node<T>> nodes)
     {
-        var result = new List<Node<T>>();
-        
-        var visited = new HashSet<Node<T>>();
-        var visiting = new HashSet<Node<T>>();
-
-        foreach (var node in nodes)
+        public IReadOnlyCollection<Node<T>> TopologicalSort()
         {
-            if (!visited.Contains(node))
-            {
-                if (!DepthFirstSearch(node, visited, visiting, result))
-                    throw new InvalidOperationException($"Cycle detected in graph {node.Value}");
-            }
+            var result = nodes.Order().ToList();
+            result.Reverse();
+            return result.ToArray();
         }
 
-        result.Reverse(); // reverse post-order for topological sort
+        public IReadOnlyCollection<Node<T>> Order()
+        {
+            var result = new List<Node<T>>();
+        
+            var visited = new HashSet<Node<T>>();
+            var visiting = new HashSet<Node<T>>();
 
-        return result.ToArray();
+            foreach (var node in nodes)
+            {
+                if (!visited.Contains(node))
+                {
+                    if (!DepthFirstSearch(node, visited, visiting, result))
+                        throw new InvalidOperationException($"Cycle detected in graph {node.Value}");
+                }
+            }
+
+            return result.ToArray();
+        }
     }
-    
+
     private static bool DepthFirstSearch<T>(Node<T> node, HashSet<Node<T>> visited, HashSet<Node<T>> visiting, List<Node<T>> result)
     {
         if (visiting.Contains(node)) return false; // cycle detected
