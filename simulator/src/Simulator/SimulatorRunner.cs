@@ -11,9 +11,7 @@ internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser pars
 {
     private readonly ILogger _logger = logger ?? NullLogger<SimulatorRunner>.Instance;
 
-    public void Run(CancellationToken token) => Run(Console.In, Console.Out, token);
-
-    internal void Run(TextReader input, TextWriter output, CancellationToken token = default)
+    public void Run(TextReader input, TextWriter output, CancellationToken token = default)
     {
         foreach (var instruction in Read(input, token))
         {
@@ -40,8 +38,7 @@ internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser pars
         while (!token.IsCancellationRequested)
         {
             var line = input.ReadLine();
-            if (line == null)
-                break; // End of stream
+            if (line == null) break; // End 
                 
             if (string.IsNullOrWhiteSpace(line))
                 continue;

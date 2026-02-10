@@ -32,7 +32,7 @@ try
     Console.WriteLine("Commands: PLACE X,Y,DIRECTION | PLACE X,Y | MOVE | LEFT | RIGHT | REPORT");
     Console.WriteLine();
     
-    consoleSimulator.Run(lifetime.ApplicationStopping);
+    consoleSimulator.Run(Console.In, Console.Out, lifetime.ApplicationStopping);
     
     Console.WriteLine("Goodbye!");
 

@@ -70,12 +70,12 @@ public sealed class SimulatorIntegrationTests
     
     [Theory]
     [MemberData(nameof(GetTestCases))]
-    public void Run(string input, string expectedOutput)
+    public void Run(string input, string expected)
     {
         using var inputReader = new StringReader(input);
         using var outputWriter = new StringWriter();
         _runner.Run(inputReader, outputWriter);
         
-        Assert.Equal(expectedOutput, outputWriter.ToString().TrimEnd());
+        Assert.Equal(expected, outputWriter.ToString().TrimEnd());
     }
 }

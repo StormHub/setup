@@ -15,9 +15,9 @@ internal sealed class InputParser
         if (parts.Length == 0)
             return null;
 
-        var commandName = parts[0].ToUpperInvariant();
+        var name = parts[0].ToUpperInvariant();
 
-        return commandName switch
+        return name switch
         {
             "PLACE" when parts.Length == 2 => ParsePlaceCommand(parts[1]),
             "MOVE" => new MoveCommand(),
