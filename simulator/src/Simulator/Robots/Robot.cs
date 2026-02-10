@@ -56,8 +56,5 @@ internal sealed class Robot(Table table)
         return true;
     }
 
-    public string Report()
-    {
-        return IsPlaced ? _state!.Value.ToString() : string.Empty;
-    }
+    public string Report() => IsPlaced ? _state!.Value.ToString() : string.Empty;
 }

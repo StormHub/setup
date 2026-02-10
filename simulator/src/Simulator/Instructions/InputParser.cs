@@ -32,7 +32,7 @@ internal sealed class InputParser
     {
         var args = arguments.Split(',', StringSplitOptions.TrimEntries);
 
-        if (args.Length < 2 || args.Length > 3)
+        if (args.Length is < 2 or > 3)
             return null;
 
         if (!int.TryParse(args[0], out var x) || !int.TryParse(args[1], out var y))
@@ -42,10 +42,9 @@ internal sealed class InputParser
 
         if (args.Length == 3)
         {
-            if (!DirectionExtensions.TryParse(args[2], out var direction))
-                return null;
-
-            return new PlaceCommand(position, direction);
+            return !DirectionExtensions.TryParse(args[2], out var direction) 
+                ? null 
+                : new PlaceCommand(position, direction);
         }
 
         return new PlaceCommand(position, null);
