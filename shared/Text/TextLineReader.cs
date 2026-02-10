@@ -39,7 +39,8 @@ public sealed class TextLineReader(TextReader textReader)
                 if (lines.Count > 0)
                 {
                     yield return new (header ?? string.Empty, string.Join(Environment.NewLine, lines));
-                    lines.Clear();
+
+                    lines = [];
                 }
 
                 header = value;

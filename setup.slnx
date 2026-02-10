@@ -7,8 +7,10 @@
     <Project Path="app/ConsoleApp.Hosting/ConsoleApp.Hosting.csproj" />
   </Folder>
   <Folder Name="/shared/">
+    <Project Path="shared/Graph.Tests/Graph.Tests.csproj" />
+    <Project Path="shared/Graph/Graph.csproj" />
     <Project Path="shared/Messaging/Messaging.csproj" />
-    <Project Path="shared/Text.Tests/Text.Tests/Text.Tests.csproj" />
+    <Project Path="shared/Text.Tests/Text.Tests.csproj" />
     <Project Path="shared/Text/Text.csproj" />
   </Folder>
 </Solution>
