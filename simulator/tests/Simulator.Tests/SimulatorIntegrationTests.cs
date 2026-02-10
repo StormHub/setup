@@ -23,6 +23,7 @@ public sealed class SimulatorIntegrationTests
             MOVE
             REPORT
             """,
+            
             "0,1,NORTH"
         ];
         
@@ -33,6 +34,7 @@ public sealed class SimulatorIntegrationTests
             LEFT
             REPORT
             """,
+            
             "0,0,WEST"
         ];
         
@@ -46,6 +48,7 @@ public sealed class SimulatorIntegrationTests
             MOVE
             REPORT
             """,
+            
             "3,3,NORTH"
         ];
         
@@ -60,6 +63,7 @@ public sealed class SimulatorIntegrationTests
             MOVE 
             REPORT
             """,
+            
             "3,2,NORTH"
         ];
     }
