@@ -31,7 +31,9 @@ try
     Console.WriteLine("==================");
     Console.WriteLine("Commands: PLACE X,Y,DIRECTION | PLACE X,Y | MOVE | LEFT | RIGHT | REPORT");
     Console.WriteLine();
+    
     consoleSimulator.Run(lifetime.ApplicationStopping);
+    
     Console.WriteLine("Goodbye!");
 
     await host.WaitForShutdownAsync(lifetime.ApplicationStopping);

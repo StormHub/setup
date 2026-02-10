@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Simulator.Instructions;
 using Simulator.Instructions.Commands;
 using Simulator.Instructions.Queries;
@@ -6,14 +7,15 @@ using Simulator.Robots;
 
 namespace Simulator;
 
-internal sealed class SimulatorRunner(
-    RobotSimulator simulator, 
-    InputParser parser, 
-    ILogger<SimulatorRunner> logger)
+internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser parser, ILogger<SimulatorRunner>? logger)
 {
-    public void Run(CancellationToken token)
+    private readonly ILogger _logger = logger ?? NullLogger<SimulatorRunner>.Instance;
+
+    public void Run(CancellationToken token) => Run(Console.In, Console.Out, token);
+
+    internal void Run(TextReader input, TextWriter output, CancellationToken token = default)
     {
-        foreach (var instruction in Read(token))
+        foreach (var instruction in Read(input, token))
         {
             switch (instruction)
             {
@@ -23,28 +25,31 @@ internal sealed class SimulatorRunner(
             
                 case IQuery query:
                     var result = simulator.Query(query);
-                    Console.WriteLine(result);
+                    output.WriteLine(result);
                     break;
                 
                 default:
-                    logger.LogWarning("Unknown instruction type: {Type}", instruction.GetType().Name);
+                    _logger.LogWarning("Unknown instruction type: {Type}", instruction.GetType().Name);
                     break;
             }
         }
     }
-    
-    private IEnumerable<IInstruction> Read(CancellationToken token)
+
+    private IEnumerable<IInstruction> Read(TextReader input, CancellationToken token)
     {
         while (!token.IsCancellationRequested)
         {
-            var input = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(input))
+            var line = input.ReadLine();
+            if (line == null)
+                break; // End of stream
+                
+            if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            var instruction = parser.Parse(input);
+            var instruction = parser.Parse(line);
             if (instruction == null)
             {
-                logger.LogWarning("Invalid input: {Input}", input);
+                _logger.LogWarning("Invalid input: {Input}", line);
                 continue;
             }
             
