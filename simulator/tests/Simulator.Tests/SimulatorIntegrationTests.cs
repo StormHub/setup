@@ -72,6 +72,6 @@ public sealed class SimulatorIntegrationTests
         using var outputWriter = new StringWriter();
         _runner.Run(inputReader, outputWriter);
         
-        Assert.Equal(expectedOutput, outputWriter.ToString().Trim());
+        Assert.Equal(expectedOutput, outputWriter.ToString().TrimEnd());
     }
 }
