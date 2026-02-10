@@ -42,7 +42,7 @@ internal sealed class InputParser
 
         if (args.Length == 3)
         {
-            return !DirectionExtensions.TryParse(args[2], out var direction) 
+            return !Direction.TryParse(args[2], out var direction) 
                 ? null 
                 : new PlaceCommand(position, direction);
         }

@@ -4,11 +4,17 @@ namespace Simulator.Tests.Robots;
 
 public sealed class PositionTests
 {
+    public static TheoryData<int, int, Direction, int, int> MoveData =>
+        new()
+        {
+            { 0, 0, Direction.North, 0, 1 },
+            { 0, 0, Direction.East, 1, 0 },
+            { 1, 1, Direction.South, 1, 0 },
+            { 1, 1, Direction.West, 0, 1 }
+        };
+
     [Theory]
-    [InlineData(0, 0, Direction.North, 0, 1)]
-    [InlineData(0, 0, Direction.East, 1, 0)]
-    [InlineData(1, 1, Direction.South, 1, 0)]
-    [InlineData(1, 1, Direction.West, 0, 1)]
+    [MemberData(nameof(MoveData))]
     public void Move_ReturnsNewPosition(int x, int y, Direction direction, int expectedX, int expectedY)
     {
         // Arrange

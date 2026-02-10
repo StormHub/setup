@@ -6,9 +6,9 @@ internal record PlaceCommand(Position Position, Direction? Direction) : ICommand
 {
     public void Execute(Robot robot)
     {
-        if (Direction.HasValue)
+        if (Direction is not null)
         {
-            robot.Place(Position, Direction.Value);
+            robot.Place(Position, Direction);
         }
         else
         {

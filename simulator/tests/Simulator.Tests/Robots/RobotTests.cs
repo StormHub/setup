@@ -99,11 +99,17 @@ public sealed class RobotTests
         Assert.False(result);
     }
 
+    public static TheoryData<int, int, Direction, string> MoveInDirectionData =>
+        new()
+        {
+            { 0, 0, Direction.North, "0,1,NORTH" },
+            { 0, 0, Direction.East, "1,0,EAST" },
+            { 5, 5, Direction.South, "5,4,SOUTH" },
+            { 5, 5, Direction.West, "4,5,WEST" }
+        };
+
     [Theory]
-    [InlineData(0, 0, Direction.North, "0,1,NORTH")]
-    [InlineData(0, 0, Direction.East, "1,0,EAST")]
-    [InlineData(5, 5, Direction.South, "5,4,SOUTH")]
-    [InlineData(5, 5, Direction.West, "4,5,WEST")]
+    [MemberData(nameof(MoveInDirectionData))]
     public void Move_InDirection_MovesRobotCorrectly(int x, int y, Direction direction, string expected)
     {
         // Arrange
@@ -119,11 +125,17 @@ public sealed class RobotTests
         Assert.Equal(expected, robot.Report());
     }
 
+    public static TheoryData<int, int, Direction> MoveWouldFallOffTableData =>
+        new()
+        {
+            { 0, 0, Direction.South },
+            { 0, 0, Direction.West },
+            { 5, 5, Direction.North },
+            { 5, 5, Direction.East }
+        };
+
     [Theory]
-    [InlineData(0, 0, Direction.South)]
-    [InlineData(0, 0, Direction.West)]
-    [InlineData(5, 5, Direction.North)]
-    [InlineData(5, 5, Direction.East)]
+    [MemberData(nameof(MoveWouldFallOffTableData))]
     public void Move_WouldFallOffTable_DoesNotMove(int x, int y, Direction direction)
     {
         // Arrange
@@ -154,11 +166,17 @@ public sealed class RobotTests
         Assert.False(result);
     }
 
+    public static TheoryData<Direction, string> LeftRotatesCounterClockwiseData =>
+        new()
+        {
+            { Direction.North, "0,0,WEST" },
+            { Direction.West, "0,0,SOUTH" },
+            { Direction.South, "0,0,EAST" },
+            { Direction.East, "0,0,NORTH" }
+        };
+
     [Theory]
-    [InlineData(Direction.North, "0,0,WEST")]
-    [InlineData(Direction.West, "0,0,SOUTH")]
-    [InlineData(Direction.South, "0,0,EAST")]
-    [InlineData(Direction.East, "0,0,NORTH")]
+    [MemberData(nameof(LeftRotatesCounterClockwiseData))]
     public void Left_RotatesRobotCounterClockwise(Direction initialDirection, string expected)
     {
         // Arrange
@@ -188,11 +206,17 @@ public sealed class RobotTests
         Assert.False(result);
     }
 
+    public static TheoryData<Direction, string> RightRotatesClockwiseData =>
+        new()
+        {
+            { Direction.North, "0,0,EAST" },
+            { Direction.East, "0,0,SOUTH" },
+            { Direction.South, "0,0,WEST" },
+            { Direction.West, "0,0,NORTH" }
+        };
+
     [Theory]
-    [InlineData(Direction.North, "0,0,EAST")]
-    [InlineData(Direction.East, "0,0,SOUTH")]
-    [InlineData(Direction.South, "0,0,WEST")]
-    [InlineData(Direction.West, "0,0,NORTH")]
+    [MemberData(nameof(RightRotatesClockwiseData))]
     public void Right_RotatesRobotClockwise(Direction initialDirection, string expected)
     {
         // Arrange

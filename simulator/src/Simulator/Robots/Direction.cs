@@ -1,45 +1,55 @@
 namespace Simulator.Robots;
 
-public enum Direction
+public sealed class Direction : IEquatable<Direction>
 {
-    North,
-    East,
-    South,
-    West
-}
+    public static readonly Direction North = new("NORTH", 0, 1);
+    public static readonly Direction East = new("EAST", 1, 0);
+    public static readonly Direction South = new("SOUTH", 0, -1);
+    public static readonly Direction West = new("WEST", -1, 0);
 
-internal static class DirectionExtensions
-{
-    extension(Direction direction)
+    private static readonly Direction[] Directions = [North, East, South, West];
+
+    private readonly string _name;
+    private readonly int _deltaX;
+    private readonly int _deltaY;
+
+    private Direction(string name, int deltaX, int deltaY)
     {
-        public Direction RotateLeft() => direction switch
-        {
-            Direction.North => Direction.West,
-            Direction.West => Direction.South,
-            Direction.South => Direction.East,
-            Direction.East => Direction.North,
-            _ => throw new ArgumentOutOfRangeException(nameof(direction))
-        };
-
-        public Direction RotateRight() => direction switch
-        {
-            Direction.North => Direction.East,
-            Direction.East => Direction.South,
-            Direction.South => Direction.West,
-            Direction.West => Direction.North,
-            _ => throw new ArgumentOutOfRangeException(nameof(direction))
-        };
-
-        public (int DeltaX, int DeltaY) GetMovementDelta() => direction switch
-        {
-            Direction.North => (0, 1),
-            Direction.East => (1, 0),
-            Direction.South => (0, -1),
-            Direction.West => (-1, 0),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction))
-        };
+        _name = name;
+        _deltaX = deltaX;
+        _deltaY = deltaY;
     }
 
-    public static bool TryParse(string value, out Direction direction) => 
-        Enum.TryParse(value, ignoreCase: true, out direction);
+    public Direction RotateLeft() => this == North ? West :
+                                      this == West ? South :
+                                      this == South ? East :
+                                      North;
+
+    public Direction RotateRight() => this == North ? East :
+                                       this == East ? South :
+                                       this == South ? West :
+                                       North;
+
+    public (int DeltaX, int DeltaY) GetMovementDelta() => (_deltaX, _deltaY);
+
+    public static bool TryParse(string value, out Direction? direction)
+    {
+        direction = Directions.FirstOrDefault(d => 
+            string.Equals(d._name, value, StringComparison.OrdinalIgnoreCase));
+        return direction is not null;
+    }
+
+    public override string ToString() => _name;
+
+    public bool Equals(Direction? other) => ReferenceEquals(this, other);
+
+    public override bool Equals(object? obj) => Equals(obj as Direction);
+
+    public override int GetHashCode() => _name.GetHashCode();
+
+    public static bool operator ==(Direction? left, Direction? right) => 
+        ReferenceEquals(left, right);
+
+    public static bool operator !=(Direction? left, Direction? right) => 
+        !ReferenceEquals(left, right);
 }
