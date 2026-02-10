@@ -4,7 +4,7 @@ internal sealed class Robot(Table table)
 {
     private RobotState? _state;
 
-    public bool IsPlaced => _state.HasValue;
+    internal bool IsPlaced => _state.HasValue;
 
     public bool Place(Position position, Direction direction)
     {
