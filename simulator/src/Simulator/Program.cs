@@ -18,7 +18,7 @@ try
         {
             services.AddTransient<RobotSimulator>();
             services.AddTransient<InputParser>();
-            services.AddTransient<ConsoleSimulator>();
+            services.AddTransient<SimulatorRunner>();
         })
         .Build();
     
@@ -26,9 +26,14 @@ try
     var lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
 
     await using var scope = host.Services.CreateAsyncScope();
-    var consoleSimulator = scope.ServiceProvider.GetRequiredService<ConsoleSimulator>();
+    var consoleSimulator = scope.ServiceProvider.GetRequiredService<SimulatorRunner>();
+    Console.WriteLine("Toy Robot Simulator");
+    Console.WriteLine("==================");
+    Console.WriteLine("Commands: PLACE X,Y,DIRECTION | PLACE X,Y | MOVE | LEFT | RIGHT | REPORT");
+    Console.WriteLine();
     consoleSimulator.Run(lifetime.ApplicationStopping);
-    
+    Console.WriteLine("Goodbye!");
+
     await host.WaitForShutdownAsync(lifetime.ApplicationStopping);
 }
 catch (Exception ex)
