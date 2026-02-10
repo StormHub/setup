@@ -1,6 +1,8 @@
-namespace Simulator.Tests;
+using Simulator.Robots;
 
-public class RobotTests
+namespace Simulator.Tests.Robots;
+
+public sealed class RobotTests
 {
     [Fact]
     public void Robot_InitialState_IsNotPlaced()

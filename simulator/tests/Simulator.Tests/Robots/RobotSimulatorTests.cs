@@ -1,8 +1,10 @@
-namespace Simulator.Tests;
+using Simulator.Instructions;
+using Simulator.Instructions.Commands;
+using Simulator.Robots;
 
-using Simulator.Commands;
+namespace Simulator.Tests.Robots;
 
-public class RobotSimulatorTests
+public sealed class RobotSimulatorTests
 {
     [Fact]
     public void ScenarioA_PlaceMoveReport_OutputsCorrectPosition()

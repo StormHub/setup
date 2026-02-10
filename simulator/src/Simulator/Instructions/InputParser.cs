@@ -1,9 +1,10 @@
-using Simulator.Commands;
-using Simulator.Queries;
+using Simulator.Instructions.Commands;
+using Simulator.Instructions.Queries;
+using Simulator.Robots;
 
-namespace Simulator;
+namespace Simulator.Instructions;
 
-public sealed class InputParser
+internal sealed class InputParser
 {
     public IInstruction? Parse(string input)
     {

@@ -1,6 +1,8 @@
-namespace Simulator.Tests;
+using Simulator.Robots;
 
-public class DirectionExtensionsTests
+namespace Simulator.Tests.Robots;
+
+public sealed class DirectionExtensionsTests
 {
     [Theory]
     [InlineData(Direction.North, Direction.West)]
@@ -69,7 +71,7 @@ public class DirectionExtensionsTests
     public void TryParse_InvalidInput_ReturnsFalse(string input)
     {
         // Act
-        var result = DirectionExtensions.TryParse(input, out var direction);
+        var result = DirectionExtensions.TryParse(input, out var _);
 
         // Assert
         Assert.False(result);

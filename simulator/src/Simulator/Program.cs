@@ -1,6 +1,7 @@
-﻿using Simulator;
-using Simulator.Commands;
-using Simulator.Queries;
+﻿using Simulator.Instructions;
+using Simulator.Instructions.Commands;
+using Simulator.Instructions.Queries;
+using Simulator.Robots;
 
 var simulator = new RobotSimulator();
 var parser = new InputParser();

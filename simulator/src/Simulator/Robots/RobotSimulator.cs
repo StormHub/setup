@@ -1,9 +1,9 @@
-using Simulator.Commands;
-using Simulator.Queries;
+using Simulator.Instructions.Commands;
+using Simulator.Instructions.Queries;
 
-namespace Simulator;
+namespace Simulator.Robots;
 
-public class RobotSimulator
+internal sealed class RobotSimulator
 {
     private readonly Robot _robot = new(new Table());
 

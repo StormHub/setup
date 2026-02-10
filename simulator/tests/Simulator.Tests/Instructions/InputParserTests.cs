@@ -1,9 +1,11 @@
-namespace Simulator.Tests;
+using Simulator.Instructions;
+using Simulator.Instructions.Commands;
+using Simulator.Instructions.Queries;
+using Simulator.Robots;
 
-using Simulator.Commands;
-using Simulator.Queries;
+namespace Simulator.Tests.Instructions;
 
-public class InputParserTests
+public sealed class InputParserTests
 {
     [Fact]
     public void Parse_PlaceWithDirectionCommand_ReturnsPlaceCommand()

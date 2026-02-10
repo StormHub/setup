@@ -1,4 +1,4 @@
-namespace Simulator;
+namespace Simulator.Robots;
 
 public sealed class Table
 {

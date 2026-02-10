@@ -1,4 +1,4 @@
-namespace Simulator;
+namespace Simulator.Robots;
 
 public readonly record struct RobotState(Position Position, Direction Direction)
 {

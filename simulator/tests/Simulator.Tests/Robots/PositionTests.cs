@@ -1,6 +1,8 @@
-namespace Simulator.Tests;
+using Simulator.Robots;
 
-public class PositionTests
+namespace Simulator.Tests.Robots;
+
+public sealed class PositionTests
 {
     [Theory]
     [InlineData(0, 0, Direction.North, 0, 1)]

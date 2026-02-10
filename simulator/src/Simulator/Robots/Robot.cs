@@ -1,6 +1,6 @@
-namespace Simulator;
+namespace Simulator.Robots;
 
-public sealed class Robot(Table table)
+internal sealed class Robot(Table table)
 {
     private RobotState? _state;
 

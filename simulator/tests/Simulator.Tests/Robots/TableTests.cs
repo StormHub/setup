@@ -1,6 +1,8 @@
-namespace Simulator.Tests;
+using Simulator.Robots;
 
-public class TableTests
+namespace Simulator.Tests.Robots;
+
+public sealed class TableTests
 {
     [Theory]
     [InlineData(0, 0, true)]

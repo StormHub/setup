@@ -1,6 +1,8 @@
-namespace Simulator.Commands;
+using Simulator.Robots;
 
-public record PlaceCommand(Position Position, Direction? Direction) : ICommand
+namespace Simulator.Instructions.Commands;
+
+internal record PlaceCommand(Position Position, Direction? Direction) : ICommand
 {
     public void Execute(Robot robot)
     {
