@@ -1,6 +1,6 @@
 namespace Simulator.Robots;
 
-public sealed class Table
+internal sealed class Table
 {
     private const int MinX = 0;
     private const int MinY = 0;
