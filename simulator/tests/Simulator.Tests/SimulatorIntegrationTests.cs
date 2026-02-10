@@ -76,6 +76,6 @@ public sealed class SimulatorIntegrationTests
         using var outputWriter = new StringWriter();
         _runner.Run(inputReader, outputWriter);
         
-        Assert.Equal(expected, outputWriter.ToString().TrimEnd());
+        Assert.Equal(expected, outputWriter.ToString().TrimEnd()); // Remove default trailing newline \n from StringWriter
     }
 }
