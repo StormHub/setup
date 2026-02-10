@@ -4,6 +4,16 @@ namespace Simulator.Tests.Robots;
 
 public sealed class TableTests
 {
+    [Fact]
+    public void Size_DefaultsToSix()
+    {
+        // Arrange & Act
+        var table = new Table();
+
+        // Assert
+        Assert.Equal(6, table.Size);
+    }
+
     [Theory]
     [InlineData(0, 0, true)]
     [InlineData(5, 5, true)]

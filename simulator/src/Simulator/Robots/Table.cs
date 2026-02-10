@@ -1,15 +1,11 @@
 namespace Simulator.Robots;
 
-internal sealed class Table
+internal sealed class Table(int size = Table.DefaultSize)
 {
-    private const int MinX = 0;
-    private const int MinY = 0;
-    private const int MaxX = 5;
-    private const int MaxY = 5;
+    private const int DefaultSize = 6;
 
-    public bool IsValidPosition(Position position)
-    {
-        return position.X >= MinX && position.X <= MaxX &&
-               position.Y >= MinY && position.Y <= MaxY;
-    }
+    internal int Size { get; } = size;
+
+    public bool IsValidPosition(Position position) => position.X >= 0 && position.X < Size &&
+                                                      position.Y >= 0 && position.Y < Size;
 }
