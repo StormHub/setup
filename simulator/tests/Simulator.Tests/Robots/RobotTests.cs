@@ -22,10 +22,9 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        var position = new Position(1, 2);
 
         // Act
-        var result = robot.Place(position, Direction.North);
+        var result = robot.TryPlace(1, 2, Direction.North);
 
         // Assert
         Assert.True(result);
@@ -43,10 +42,9 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        var position = new Position(x, y);
 
         // Act
-        var result = robot.Place(position, Direction.North);
+        var result = robot.TryPlace(x, y, Direction.North);
 
         // Assert
         Assert.False(result);
@@ -59,10 +57,9 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        var position = new Position(1, 1);
 
         // Act
-        var result = robot.Place(position);
+        var result = robot.TryPlace(1, 1);
 
         // Assert
         Assert.False(result);
@@ -75,10 +72,10 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        robot.Place(new Position(0, 0), Direction.North);
+        robot.TryPlace(0, 0, Direction.North);
 
         // Act
-        var result = robot.Place(new Position(3, 3));
+        var result = robot.TryPlace(3, 3);
 
         // Assert
         Assert.True(result);
@@ -93,7 +90,7 @@ public sealed class RobotTests
         var robot = new Robot(table);
 
         // Act
-        var result = robot.Move();
+        var result = robot.TryMove();
 
         // Assert
         Assert.False(result);
@@ -115,10 +112,10 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        robot.Place(new Position(x, y), direction);
+        robot.TryPlace(x, y, direction);
 
         // Act
-        var result = robot.Move();
+        var result = robot.TryMove();
 
         // Assert
         Assert.True(result);
@@ -141,11 +138,11 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        robot.Place(new Position(x, y), direction);
+        robot.TryPlace(x, y, direction);
         var originalReport = robot.Report();
 
         // Act
-        var result = robot.Move();
+        var result = robot.TryMove();
 
         // Assert
         Assert.False(result);
@@ -160,7 +157,7 @@ public sealed class RobotTests
         var robot = new Robot(table);
 
         // Act
-        var result = robot.Left();
+        var result = robot.TryTurnLeft();
 
         // Assert
         Assert.False(result);
@@ -182,10 +179,10 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        robot.Place(new Position(0, 0), initialDirection);
+        robot.TryPlace(0, 0, initialDirection);
 
         // Act
-        var result = robot.Left();
+        var result = robot.TryTurnLeft();
 
         // Assert
         Assert.True(result);
@@ -200,7 +197,7 @@ public sealed class RobotTests
         var robot = new Robot(table);
 
         // Act
-        var result = robot.Right();
+        var result = robot.TryTurnRight();
 
         // Assert
         Assert.False(result);
@@ -222,10 +219,10 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        robot.Place(new Position(0, 0), initialDirection);
+        robot.TryPlace(0, 0, initialDirection);
 
         // Act
-        var result = robot.Right();
+        var result = robot.TryTurnRight();
 
         // Assert
         Assert.True(result);
@@ -252,7 +249,7 @@ public sealed class RobotTests
         // Arrange
         var table = new Table();
         var robot = new Robot(table);
-        robot.Place(new Position(3, 4), Direction.South);
+        robot.TryPlace(3, 4, Direction.South);
 
         // Act
         var result = robot.Report();

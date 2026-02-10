@@ -4,5 +4,5 @@ namespace Simulator.Instructions.Commands;
 
 internal record LeftCommand : ICommand
 {
-    public void Execute(Robot robot) => robot.Left();
+    public void Execute(Robot robot) => robot.TryTurnLeft();
 }

@@ -1,60 +1,65 @@
 namespace Simulator.Robots;
 
+internal readonly record struct RobotState(Table.Position Position, Direction Direction)
+{
+    public override string ToString() => $"{Position.X},{Position.Y},{Direction.ToString().ToUpper()}";
+}
+
 internal sealed class Robot(Table table)
 {
     private RobotState? _state;
 
     internal bool IsPlaced => _state.HasValue;
 
-    public bool Place(Position position, Direction direction)
+    public bool TryPlace(int x, int y, Direction direction)
     {
-        if (!table.IsValidPosition(position))
+        if (!table.TryPlace(x, y, out var position))
             return false;
 
         _state = new RobotState(position, direction);
         return true;
     }
 
-    public bool Place(Position position)
+    public bool TryPlace(int x, int y)
     {
-        if (!IsPlaced || !table.IsValidPosition(position))
+        var direction = _state?.Direction;
+        if (direction is null || !table.TryPlace(x, y, out var position))
             return false;
 
-        _state = _state!.Value with { Position = position };
+        _state = new RobotState(position, direction);
         return true;
     }
 
-    public bool Move()
+    public bool TryMove()
     {
-        if (!IsPlaced)
-            return false;
+        if (!_state.HasValue) return false;
 
-        var newPosition = _state!.Value.Position.Move(_state.Value.Direction);
-
-        if (!table.IsValidPosition(newPosition))
+        var (deltaX, deltaY) = _state.Value.Direction.GetMovementDelta();
+        var newX = _state.Value.Position.X + deltaX;
+        var newY = _state.Value.Position.Y + deltaY;
+        
+        if (!table.TryPlace(newX, newY, out var newPosition))
             return false;
 
         _state = _state.Value with { Position = newPosition };
         return true;
     }
 
-    public bool Left()
+    public bool TryTurnLeft()
     {
-        if (!IsPlaced)
-            return false;
+        if (!_state.HasValue) return false;
 
-        _state = _state!.Value with { Direction = _state.Value.Direction.RotateLeft() };
+        _state = _state.Value with { Direction = _state.Value.Direction.RotateLeft() };
         return true;
     }
 
-    public bool Right()
+    public bool TryTurnRight()
     {
-        if (!IsPlaced)
-            return false;
+        if (!_state.HasValue) return false;
 
-        _state = _state!.Value with { Direction = _state.Value.Direction.RotateRight() };
+        _state = _state.Value with { Direction = _state.Value.Direction.RotateRight() };
         return true;
     }
 
-    public string Report() => IsPlaced ? _state!.Value.ToString() : string.Empty;
+    public string Report() => _state.HasValue ? _state.Value.ToString() : string.Empty;
 }

@@ -20,8 +20,8 @@ public sealed class InputParserTests
         Assert.NotNull(instruction);
         Assert.IsType<PlaceCommand>(instruction);
         var placeCommand = (PlaceCommand)instruction;
-        Assert.Equal(1, placeCommand.Position.X);
-        Assert.Equal(2, placeCommand.Position.Y);
+        Assert.Equal(1, placeCommand.X);
+        Assert.Equal(2, placeCommand.Y);
         Assert.Equal(Direction.North, placeCommand.Direction);
     }
 
@@ -38,8 +38,8 @@ public sealed class InputParserTests
         Assert.NotNull(instruction);
         Assert.IsType<PlaceCommand>(instruction);
         var placeCommand = (PlaceCommand)instruction;
-        Assert.Equal(3, placeCommand.Position.X);
-        Assert.Equal(4, placeCommand.Position.Y);
+        Assert.Equal(3, placeCommand.X);
+        Assert.Equal(4, placeCommand.Y);
         Assert.Null(placeCommand.Direction);
     }
 

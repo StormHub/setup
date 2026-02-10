@@ -38,15 +38,13 @@ internal sealed class InputParser
         if (!int.TryParse(args[0], out var x) || !int.TryParse(args[1], out var y))
             return null;
 
-        var position = new Position(x, y);
-
         if (args.Length == 3)
         {
             return !Direction.TryParse(args[2], out var direction) 
                 ? null 
-                : new PlaceCommand(position, direction);
+                : new PlaceCommand(x, y, direction);
         }
 
-        return new PlaceCommand(position, null);
+        return new PlaceCommand(x, y, null);
     }
 }

@@ -2,17 +2,17 @@ using Simulator.Robots;
 
 namespace Simulator.Instructions.Commands;
 
-internal record PlaceCommand(Position Position, Direction? Direction) : ICommand
+internal record PlaceCommand(int X, int Y, Direction? Direction) : ICommand
 {
     public void Execute(Robot robot)
     {
         if (Direction is not null)
         {
-            robot.Place(Position, Direction);
+            robot.TryPlace(X, Y, Direction);
         }
         else
         {
-            robot.Place(Position);
+            robot.TryPlace(X, Y);
         }
     }
 }

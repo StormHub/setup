@@ -4,5 +4,5 @@ namespace Simulator.Instructions.Commands;
 
 internal record MoveCommand : ICommand
 {
-    public void Execute(Robot robot) => robot.Move();
+    public void Execute(Robot robot) => robot.TryMove();
 }
