@@ -19,8 +19,7 @@ public sealed class InputParserTests
         // Assert
         Assert.True(result);
         Assert.NotNull(instruction);
-        Assert.IsType<PlaceCommand>(instruction);
-        var placeCommand = (PlaceCommand)instruction;
+        var placeCommand = Assert.IsType<PlaceCommand>(instruction);
         Assert.Equal(1, placeCommand.X);
         Assert.Equal(2, placeCommand.Y);
         Assert.Equal(Direction.North, placeCommand.Direction);
@@ -38,8 +37,7 @@ public sealed class InputParserTests
         // Assert
         Assert.True(result);
         Assert.NotNull(instruction);
-        Assert.IsType<PlaceCommand>(instruction);
-        var placeCommand = (PlaceCommand)instruction;
+        var placeCommand = Assert.IsType<PlaceCommand>(instruction);
         Assert.Equal(3, placeCommand.X);
         Assert.Equal(4, placeCommand.Y);
         Assert.Null(placeCommand.Direction);
