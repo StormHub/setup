@@ -37,9 +37,9 @@ try
         - PLACE X,Y,DIRECTION
           Place the robot on the table at coordinates (X,Y) facing DIRECTION (NORTH, SOUTH, EAST, WEST).
           If the robot is already on the table, DIRECTION can be omitted to keep the current facing direction.
-          Note parameters are separated by commas *without spaces*.
         
-        - MOVE: Move the robot one unit forward in the direction it is currently facing.
+        - MOVE: 
+          Move the robot one unit forward in the direction it is currently facing.
         
         - LEFT: 
           Rotate the robot 90 degrees to the left without changing its position.
@@ -49,8 +49,8 @@ try
           
         - REPORT: 
           Output the current position and direction of the robot in the format "X,Y,DIRECTION".
-          Note if the robot is not on the table, output is empty.
-          
+
+        Note: invalid commands are ignored.
         """);
     simulator.Run(Console.In, lifetime.ApplicationStopping);
     Console.WriteLine("Goodbye!");

@@ -181,6 +181,9 @@ public sealed class InputParserTests
     [InlineData("PLACE  1,2,NORTH")]
     [InlineData("  MOVE  ")]
     [InlineData("  REPORT  ")]
+    [InlineData("PLACE 1, 2, NORTH")]
+    [InlineData("PLACE 1 , 2 , NORTH")]
+    [InlineData("PLACE   1,  2,  NORTH")]
     public void TryParse_CommandWithExtraWhitespace_ParsesCorrectly(string input)
     {
         // Arrange

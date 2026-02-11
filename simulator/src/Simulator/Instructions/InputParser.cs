@@ -16,15 +16,14 @@ internal sealed class InputParser(TextWriter output, ILoggerFactory? loggerFacto
         if (string.IsNullOrWhiteSpace(input))
             return false;
 
-        var parts = input.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 0)
-            return false;
-
-        var name = parts[0].ToUpperInvariant();
+        var trimmed = input.Trim();
+        var spaceIndex = trimmed.IndexOf(' ');
+        var name = (spaceIndex == -1 ? trimmed : trimmed[..spaceIndex]).ToUpperInvariant();
+        var arguments = spaceIndex == -1 ? null : trimmed[(spaceIndex + 1)..];
 
         instruction = name switch
         {
-            "PLACE" when parts.Length == 2 => ParsePlaceCommand(parts[1]),
+            "PLACE" when arguments is not null => ParsePlaceCommand(arguments),
             "MOVE" => new MoveCommand(_loggerFactory),
             "LEFT" => new LeftCommand(_loggerFactory),
             "RIGHT" => new RightCommand(_loggerFactory),
