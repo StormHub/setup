@@ -98,13 +98,6 @@ Run all tests from the project root:
 dotnet test
 ```
 
-Run tests with detailed output:
-
-```bash
-dotnet test --verbosity normal
-```
-
-
 ## Project Structure
 
 ```
