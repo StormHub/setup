@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Extensions.Configuration;
+﻿﻿﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,10 +17,9 @@ try
         })
         .ConfigureServices((_, services) =>
         {
+            services.AddTransient(provider => 
+                new InputParser(Console.Out, provider.GetRequiredService<ILoggerFactory>()));
             services.AddTransient<RobotSimulator>();
-            services.AddTransient(provider => new InputParser(
-                Console.Out, provider.GetRequiredService<ILoggerFactory>()));
-            services.AddTransient<SimulatorRunner>();
         })
         .Build();
     
@@ -28,7 +27,7 @@ try
     var lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
 
     await using var scope = host.Services.CreateAsyncScope();
-    var consoleSimulator = scope.ServiceProvider.GetRequiredService<SimulatorRunner>();
+    var simulator = scope.ServiceProvider.GetRequiredService<RobotSimulator>();
     
     Console.WriteLine(
         """
@@ -54,7 +53,7 @@ try
           Note if the robot is not on the table, output is empty.
           
         """);
-    consoleSimulator.Run(Console.In, lifetime.ApplicationStopping);
+    simulator.Run(Console.In, lifetime.ApplicationStopping);
     Console.WriteLine("Goodbye!");
 
     await host.WaitForShutdownAsync(lifetime.ApplicationStopping);

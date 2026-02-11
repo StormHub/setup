@@ -112,7 +112,7 @@ simulator/
 ├── src/
 │   └── Simulator/
 │       ├── Program.cs         # Application entry point
-│       ├── SimulatorRunner.cs # Main simulator loop
+│       ├── RobotSimulator.cs  # Main simulator loop
 │       ├── Instructions/      # Command parsing and instruction types
 │       │   ├── IInstruction.cs
 │       │   ├── InputParser.cs
@@ -124,7 +124,6 @@ simulator/
 │       └── Robots/            # Robot and table domain models
 │           ├── Direction.cs
 │           ├── Robot.cs
-│           ├── RobotSimulator.cs
 │           └── Table.cs
 ├── tests/
 │   └── Simulator.Tests/       # Unit and integration tests

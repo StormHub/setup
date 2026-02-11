@@ -5,25 +5,36 @@ using Simulator.Robots;
 
 namespace Simulator;
 
-internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser parser, ILogger<SimulatorRunner>? logger)
+internal sealed class RobotSimulator(InputParser parser, ILogger<RobotSimulator>? logger = null)
 {
-    private readonly ILogger _logger = logger ?? NullLogger<SimulatorRunner>.Instance;
+    private readonly Robot _robot = new(new Table());
+    private readonly ILogger _logger = logger ?? NullLogger<RobotSimulator>.Instance;
 
     public void Run(TextReader input, CancellationToken token = default)
     {
         foreach (var instruction in Read(input, token))
         {
-            simulator.Execute(instruction);
+            Execute(instruction);
         }
     }
+
+    internal void Execute(params IEnumerable<IInstruction> instructions)
+    {
+        foreach (var instruction in instructions)
+        {
+            instruction.Execute(_robot);
+        }
+    }
+
+    internal string Report() => _robot.Report();
 
     private IEnumerable<IInstruction> Read(TextReader input, CancellationToken token)
     {
         while (!token.IsCancellationRequested)
         {
             var line = input.ReadLine();
-            if (line == null) break; // End 
-                
+            if (line == null) break;
+
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
@@ -32,7 +43,7 @@ internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser pars
                 _logger.LogDebug("Invalid input: {Input}", line);
                 continue;
             }
-            
+
             yield return instruction;
         }
     }

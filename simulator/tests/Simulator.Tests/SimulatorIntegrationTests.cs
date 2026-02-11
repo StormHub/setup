@@ -62,11 +62,10 @@ public sealed class SimulatorIntegrationTests
         using var inputReader = new StringReader(input);
         using var outputWriter = new StringWriter();
         
-        var simulator = new RobotSimulator();
         var parser = new InputParser(outputWriter, null);
-        var runner = new SimulatorRunner(simulator, parser, default);
+        var simulator = new RobotSimulator(parser, null);
         
-        runner.Run(inputReader);
+        simulator.Run(inputReader);
         
         Assert.Equal(expected, outputWriter.ToString().TrimEnd()); // Remove default trailing newline \n from StringWriter
     }
