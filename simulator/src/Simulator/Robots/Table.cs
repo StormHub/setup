@@ -2,11 +2,17 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Simulator.Robots;
 
-internal sealed class Table(int size = Table.DefaultSize)
+internal sealed class Table
 {
     private const int DefaultSize = 6;
 
-    internal int Size { get; } = size;
+    internal int Size { get; }
+
+    public Table(int size = DefaultSize)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(size);
+        Size = size;
+    }
     
     internal sealed class Position
     {

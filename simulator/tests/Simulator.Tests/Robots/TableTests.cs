@@ -54,4 +54,28 @@ public sealed class TableTests
         Assert.False(result);
         Assert.Null(position);
     }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(-100)]
+    public void Constructor_SizeZeroOrLess_ThrowsArgumentOutOfRangeException(int size)
+    {
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => new Table(size));
+        Assert.Equal("size", exception.ParamName);
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(5)]
+    [InlineData(10)]
+    public void Constructor_SizeGreaterThanZero_SetsSize(int size)
+    {
+        // Arrange & Act
+        var table = new Table(size);
+
+        // Assert
+        Assert.Equal(size, table.Size);
+    }
 }

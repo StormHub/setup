@@ -1,10 +1,9 @@
-﻿﻿﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Simulator;
 using Simulator.Instructions;
-using Simulator.Robots;
 
 IHost? host = default;
 try
