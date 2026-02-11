@@ -51,6 +51,7 @@ try
           Output the current position and direction of the robot in the format "X,Y,DIRECTION".
 
         Note: invalid commands are ignored.
+        
         """);
     simulator.Run(Console.In, lifetime.ApplicationStopping);
     Console.WriteLine("Goodbye!");
