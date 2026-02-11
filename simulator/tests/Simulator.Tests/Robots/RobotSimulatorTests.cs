@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging.Abstractions;
 using Simulator.Instructions;
 using Simulator.Robots;
 
@@ -13,8 +14,8 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new PlaceCommand(0, 0, Direction.North),
-            new MoveCommand());
+            new PlaceCommand(0, 0, Direction.North, NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("0,1,NORTH", simulator.Report());
@@ -28,8 +29,8 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new PlaceCommand(0, 0, Direction.North),
-            new LeftCommand());
+            new PlaceCommand(0, 0, Direction.North, NullLoggerFactory.Instance),
+            new LeftCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("0,0,WEST", simulator.Report());
@@ -43,11 +44,11 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new PlaceCommand(1, 2, Direction.East),
-            new MoveCommand(),
-            new MoveCommand(),
-            new LeftCommand(),
-            new MoveCommand());
+            new PlaceCommand(1, 2, Direction.East, NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new LeftCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("3,3,NORTH", simulator.Report());
@@ -61,12 +62,12 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new PlaceCommand(1, 2, Direction.East),
-            new MoveCommand(),
-            new LeftCommand(),
-            new MoveCommand(),
-            new PlaceCommand(3, 1, null),
-            new MoveCommand());
+            new PlaceCommand(1, 2, Direction.East, NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new LeftCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new PlaceCommand(3, 1, null, NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("3,2,NORTH", simulator.Report());
@@ -80,10 +81,10 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new MoveCommand(),
-            new LeftCommand(),
-            new RightCommand(),
-            new PlaceCommand(1, 1, Direction.North));
+            new MoveCommand(NullLoggerFactory.Instance),
+            new LeftCommand(NullLoggerFactory.Instance),
+            new RightCommand(NullLoggerFactory.Instance),
+            new PlaceCommand(1, 1, Direction.North, NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("1,1,NORTH", simulator.Report());
@@ -97,8 +98,8 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new PlaceCommand(6, 6, Direction.North),
-            new PlaceCommand(1, 1, Direction.North));
+            new PlaceCommand(6, 6, Direction.North, NullLoggerFactory.Instance),
+            new PlaceCommand(1, 1, Direction.North, NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("1,1,NORTH", simulator.Report());
@@ -112,8 +113,8 @@ public sealed class RobotSimulatorTests
 
         // Act
         simulator.Execute(
-            new PlaceCommand(0, 0, Direction.South),
-            new MoveCommand());
+            new PlaceCommand(0, 0, Direction.South, NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("0,0,SOUTH", simulator.Report());
@@ -126,10 +127,10 @@ public sealed class RobotSimulatorTests
         var simulator = new RobotSimulator();
 
         // Act
-        simulator.Execute(new PlaceCommand(0, 0, Direction.North));
+        simulator.Execute(new PlaceCommand(0, 0, Direction.North, NullLoggerFactory.Instance));
         var output1 = simulator.Report();
         
-        simulator.Execute(new MoveCommand());
+        simulator.Execute(new MoveCommand(NullLoggerFactory.Instance));
         var output2 = simulator.Report();
 
         // Assert
@@ -148,7 +149,7 @@ public sealed class RobotSimulatorTests
         var simulator = new RobotSimulator();
 
         // Act
-        simulator.Execute(new PlaceCommand(x, y, Direction.North));
+        simulator.Execute(new PlaceCommand(x, y, Direction.North, NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal($"{x},{y},NORTH", simulator.Report());
@@ -162,12 +163,12 @@ public sealed class RobotSimulatorTests
 
         // Act - Move along north edge
         simulator.Execute(
-            new PlaceCommand(0, 5, Direction.East),
-            new MoveCommand(),
-            new MoveCommand(),
-            new MoveCommand(),
-            new MoveCommand(),
-            new MoveCommand());
+            new PlaceCommand(0, 5, Direction.East, NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance),
+            new MoveCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("5,5,EAST", simulator.Report());
@@ -181,11 +182,11 @@ public sealed class RobotSimulatorTests
 
         // Act - Four right turns = full rotation
         simulator.Execute(
-            new PlaceCommand(2, 2, Direction.North),
-            new RightCommand(),
-            new RightCommand(),
-            new RightCommand(),
-            new RightCommand());
+            new PlaceCommand(2, 2, Direction.North, NullLoggerFactory.Instance),
+            new RightCommand(NullLoggerFactory.Instance),
+            new RightCommand(NullLoggerFactory.Instance),
+            new RightCommand(NullLoggerFactory.Instance),
+            new RightCommand(NullLoggerFactory.Instance));
 
         // Assert
         Assert.Equal("2,2,NORTH", simulator.Report());

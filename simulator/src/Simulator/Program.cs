@@ -1,6 +1,7 @@
 ﻿﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Simulator;
 using Simulator.Instructions;
 using Simulator.Robots;
@@ -17,7 +18,8 @@ try
         .ConfigureServices((_, services) =>
         {
             services.AddTransient<RobotSimulator>();
-            services.AddTransient(_ => new InputParser(Console.Out));
+            services.AddTransient(provider => new InputParser(
+                Console.Out, provider.GetRequiredService<ILoggerFactory>()));
             services.AddTransient<SimulatorRunner>();
         })
         .Build();

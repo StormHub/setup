@@ -10,7 +10,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse("PLACE 1,2,NORTH", out var instruction);
@@ -18,10 +18,12 @@ public sealed class InputParserTests
         // Assert
         Assert.True(result);
         Assert.NotNull(instruction);
-        var placeCommand = Assert.IsType<PlaceCommand>(instruction);
-        Assert.Equal(1, placeCommand.X);
-        Assert.Equal(2, placeCommand.Y);
-        Assert.Equal(Direction.North, placeCommand.Direction);
+        Assert.IsType<PlaceCommand>(instruction);
+        
+        // Verify the place command works correctly by executing it
+        var robot = new Robot(new Table());
+        instruction.Execute(robot);
+        Assert.Equal("1,2,NORTH", robot.Report());
     }
 
     [Fact]
@@ -29,7 +31,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse("PLACE 3,4", out var instruction);
@@ -51,7 +53,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse(input, out var instruction);
@@ -67,7 +69,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse("MOVE", out var instruction);
@@ -83,7 +85,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse("LEFT", out var instruction);
@@ -99,7 +101,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse("RIGHT", out var instruction);
@@ -115,7 +117,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse("REPORT", out var instruction);
@@ -140,7 +142,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse(input, out var instruction);
@@ -164,7 +166,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse(input, out var instruction);
@@ -183,7 +185,7 @@ public sealed class InputParserTests
     {
         // Arrange
         using var output = new StringWriter();
-        var parser = new InputParser(output);
+        var parser = new InputParser(output, null);
 
         // Act
         var result = parser.TryParse(input, out var instruction);

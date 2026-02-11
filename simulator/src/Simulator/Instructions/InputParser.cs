@@ -1,10 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Simulator.Robots;
 
 namespace Simulator.Instructions;
 
-internal sealed class InputParser(TextWriter output)
+internal sealed class InputParser(TextWriter output, ILoggerFactory? loggerFactory)
 {
+    private readonly ILoggerFactory _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
+
     public bool TryParse(string input, [NotNullWhen(true)] out IInstruction? instruction)
     {
         instruction = null;
@@ -21,17 +25,17 @@ internal sealed class InputParser(TextWriter output)
         instruction = name switch
         {
             "PLACE" when parts.Length == 2 => ParsePlaceCommand(parts[1]),
-            "MOVE" => new MoveCommand(),
-            "LEFT" => new LeftCommand(),
-            "RIGHT" => new RightCommand(),
-            "REPORT" => new ReportQuery(output),
+            "MOVE" => new MoveCommand(_loggerFactory),
+            "LEFT" => new LeftCommand(_loggerFactory),
+            "RIGHT" => new RightCommand(_loggerFactory),
+            "REPORT" => new ReportQuery(output, _loggerFactory),
             _ => null
         };
 
         return instruction is not null;
     }
 
-    private static IInstruction? ParsePlaceCommand(string arguments)
+    private IInstruction? ParsePlaceCommand(string arguments)
     {
         var args = arguments.Split(',', StringSplitOptions.TrimEntries);
 
@@ -45,9 +49,9 @@ internal sealed class InputParser(TextWriter output)
         {
             return !Direction.TryParse(args[2], out var direction) 
                 ? null 
-                : new PlaceCommand(x, y, direction);
+                : new PlaceCommand(x, y, direction, _loggerFactory);
         }
 
-        return new PlaceCommand(x, y, null);
+        return new PlaceCommand(x, y, null, _loggerFactory);
     }
 }

@@ -29,7 +29,7 @@ internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser pars
 
             if (!parser.TryParse(line, out var instruction))
             {
-                _logger.LogWarning("Invalid input: {Input}", line);
+                _logger.LogDebug("Invalid input: {Input}", line);
                 continue;
             }
             

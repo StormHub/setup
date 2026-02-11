@@ -133,8 +133,3 @@ simulator/
 ├── Simulator.slnx             # Solution file
 └── README.md
 ```
-
-## License
-
-This project is provided for educational and demonstration purposes.
-

@@ -63,7 +63,7 @@ public sealed class SimulatorIntegrationTests
         using var outputWriter = new StringWriter();
         
         var simulator = new RobotSimulator();
-        var parser = new InputParser(outputWriter);
+        var parser = new InputParser(outputWriter, null);
         var runner = new SimulatorRunner(simulator, parser, default);
         
         runner.Run(inputReader);
