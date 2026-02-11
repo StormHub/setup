@@ -27,13 +27,32 @@ try
 
     await using var scope = host.Services.CreateAsyncScope();
     var consoleSimulator = scope.ServiceProvider.GetRequiredService<SimulatorRunner>();
-    Console.WriteLine("Toy Robot Simulator");
-    Console.WriteLine("==================");
-    Console.WriteLine("Commands: PLACE X,Y,DIRECTION | PLACE X,Y | MOVE | LEFT | RIGHT | REPORT");
-    Console.WriteLine();
     
+    Console.WriteLine(
+        """
+        Toy Robot Simulator
+        ==================
+        
+        Commands:
+        - PLACE X,Y,DIRECTION
+          Place the robot on the table at coordinates (X,Y) facing DIRECTION (NORTH, SOUTH, EAST, WEST).
+          If the robot is already on the table, DIRECTION can be omitted to keep the current facing direction.
+          Note parameters are separated by commas *without spaces*.
+        
+        - MOVE: Move the robot one unit forward in the direction it is currently facing.
+        
+        - LEFT: 
+          Rotate the robot 90 degrees to the left without changing its position.
+          
+        - RIGHT: 
+          Rotate the robot 90 degrees to the right without changing its position.
+          
+        - REPORT: 
+          Output the current position and direction of the robot in the format "X,Y,DIRECTION".
+          Note if the robot is not on the table, output is empty.
+          
+        """);
     consoleSimulator.Run(Console.In, lifetime.ApplicationStopping);
-    
     Console.WriteLine("Goodbye!");
 
     await host.WaitForShutdownAsync(lifetime.ApplicationStopping);
