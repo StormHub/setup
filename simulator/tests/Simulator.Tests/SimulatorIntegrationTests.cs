@@ -5,10 +5,9 @@ namespace Simulator.Tests;
 
 public sealed class SimulatorIntegrationTests
 {
-    public static IEnumerable<object[]> GetTestCases()
+    public static TheoryData<string, string> GetTestCases() => new()
     {
-        yield return
-        [
+        {
             """
             PLACE 0,0,NORTH
             MOVE
@@ -16,10 +15,9 @@ public sealed class SimulatorIntegrationTests
             """,
             
             "0,1,NORTH"
-        ];
+        },
         
-        yield return
-        [
+        {
             """
             PLACE 0,0,NORTH
             LEFT
@@ -27,10 +25,9 @@ public sealed class SimulatorIntegrationTests
             """,
             
             "0,0,WEST"
-        ];
+        },
         
-        yield return
-        [
+        {
             """
             PLACE 1,2,EAST
             MOVE
@@ -41,10 +38,9 @@ public sealed class SimulatorIntegrationTests
             """,
             
             "3,3,NORTH"
-        ];
+        },
         
-        yield return
-        [
+        {
             """
             PLACE 1,2,EAST 
             MOVE 
@@ -56,8 +52,8 @@ public sealed class SimulatorIntegrationTests
             """,
             
             "3,2,NORTH"
-        ];
-    }
+        }
+    };
     
     [Theory]
     [MemberData(nameof(GetTestCases))]
