@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Simulator.Instructions.Commands;
 using Simulator.Instructions.Queries;
 using Simulator.Robots;
@@ -6,18 +7,20 @@ namespace Simulator.Instructions;
 
 internal sealed class InputParser
 {
-    public IInstruction? Parse(string input)
+    public bool TryParse(string input, [NotNullWhen(true)] out IInstruction? instruction)
     {
+        instruction = null;
+        
         if (string.IsNullOrWhiteSpace(input))
-            return null;
+            return false;
 
         var parts = input.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (parts.Length == 0)
-            return null;
+            return false;
 
         var name = parts[0].ToUpperInvariant();
 
-        return name switch
+        instruction = name switch
         {
             "PLACE" when parts.Length == 2 => ParsePlaceCommand(parts[1]),
             "MOVE" => new MoveCommand(),
@@ -26,6 +29,8 @@ internal sealed class InputParser
             "REPORT" => new ReportQuery(),
             _ => null
         };
+
+        return instruction is not null;
     }
 
     private static ICommand? ParsePlaceCommand(string arguments)

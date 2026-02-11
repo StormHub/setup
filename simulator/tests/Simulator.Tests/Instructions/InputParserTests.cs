@@ -8,15 +8,16 @@ namespace Simulator.Tests.Instructions;
 public sealed class InputParserTests
 {
     [Fact]
-    public void Parse_PlaceWithDirectionCommand_ReturnsPlaceCommand()
+    public void TryParse_PlaceWithDirectionCommand_ReturnsPlaceCommand()
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse("PLACE 1,2,NORTH");
+        var result = parser.TryParse("PLACE 1,2,NORTH", out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<PlaceCommand>(instruction);
         var placeCommand = (PlaceCommand)instruction;
@@ -26,15 +27,16 @@ public sealed class InputParserTests
     }
 
     [Fact]
-    public void Parse_PlaceWithoutDirectionCommand_ReturnsPlaceCommand()
+    public void TryParse_PlaceWithoutDirectionCommand_ReturnsPlaceCommand()
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse("PLACE 3,4");
+        var result = parser.TryParse("PLACE 3,4", out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<PlaceCommand>(instruction);
         var placeCommand = (PlaceCommand)instruction;
@@ -47,71 +49,76 @@ public sealed class InputParserTests
     [InlineData("PLACE 1,2,NORTH")]
     [InlineData("place 1,2,north")]
     [InlineData("Place 1,2,North")]
-    public void Parse_PlaceCommand_IsCaseInsensitive(string input)
+    public void TryParse_PlaceCommand_IsCaseInsensitive(string input)
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse(input);
+        var result = parser.TryParse(input, out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<PlaceCommand>(instruction);
     }
 
     [Fact]
-    public void Parse_MoveCommand_ReturnsMoveCommand()
+    public void TryParse_MoveCommand_ReturnsMoveCommand()
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse("MOVE");
+        var result = parser.TryParse("MOVE", out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<MoveCommand>(instruction);
     }
 
     [Fact]
-    public void Parse_LeftCommand_ReturnsLeftCommand()
+    public void TryParse_LeftCommand_ReturnsLeftCommand()
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse("LEFT");
+        var result = parser.TryParse("LEFT", out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<LeftCommand>(instruction);
     }
 
     [Fact]
-    public void Parse_RightCommand_ReturnsRightCommand()
+    public void TryParse_RightCommand_ReturnsRightCommand()
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse("RIGHT");
+        var result = parser.TryParse("RIGHT", out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<RightCommand>(instruction);
     }
 
     [Fact]
-    public void Parse_ReportQuery_ReturnsReportQuery()
+    public void TryParse_ReportQuery_ReturnsReportQuery()
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse("REPORT");
+        var result = parser.TryParse("REPORT", out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<ReportQuery>(instruction);
     }
@@ -120,15 +127,16 @@ public sealed class InputParserTests
     [InlineData("REPORT")]
     [InlineData("report")]
     [InlineData("Report")]
-    public void Parse_ReportQuery_IsCaseInsensitive(string input)
+    public void TryParse_ReportQuery_IsCaseInsensitive(string input)
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse(input);
+        var result = parser.TryParse(input, out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
         Assert.IsType<ReportQuery>(instruction);
     }
@@ -142,15 +150,16 @@ public sealed class InputParserTests
     [InlineData("PLACE 1,2,3,4")]
     [InlineData("PLACE a,b,NORTH")]
     [InlineData("PLACE 1,2,INVALID")]
-    public void Parse_InvalidCommand_ReturnsNull(string input)
+    public void TryParse_InvalidCommand_ReturnsFalseAndNull(string input)
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse(input);
+        var result = parser.TryParse(input, out var instruction);
 
         // Assert
+        Assert.False(result);
         Assert.Null(instruction);
     }
 
@@ -159,15 +168,16 @@ public sealed class InputParserTests
     [InlineData("PLACE  1,2,NORTH")]
     [InlineData("  MOVE  ")]
     [InlineData("  REPORT  ")]
-    public void Parse_CommandWithExtraWhitespace_ParsesCorrectly(string input)
+    public void TryParse_CommandWithExtraWhitespace_ParsesCorrectly(string input)
     {
         // Arrange
         var parser = new InputParser();
 
         // Act
-        var instruction = parser.Parse(input);
+        var result = parser.TryParse(input, out var instruction);
 
         // Assert
+        Assert.True(result);
         Assert.NotNull(instruction);
     }
 }

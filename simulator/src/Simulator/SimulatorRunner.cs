@@ -43,14 +43,13 @@ internal sealed class SimulatorRunner(RobotSimulator simulator, InputParser pars
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            var instruction = parser.Parse(line);
-            if (instruction == null)
+            if (!parser.TryParse(line, out var instruction))
             {
                 _logger.LogWarning("Invalid input: {Input}", line);
                 continue;
             }
             
-            yield return instruction;
+            yield return instruction!;
         }
     }
 }
