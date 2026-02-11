@@ -1,5 +1,8 @@
+using Simulator.Robots;
+
 namespace Simulator.Instructions;
 
-public interface IInstruction
+internal interface IInstruction
 {
+    void Execute(Robot robot);
 }

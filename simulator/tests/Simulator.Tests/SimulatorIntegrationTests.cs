@@ -5,15 +5,6 @@ namespace Simulator.Tests;
 
 public sealed class SimulatorIntegrationTests
 {
-    private readonly SimulatorRunner _runner;
-
-    public SimulatorIntegrationTests()
-    {
-        var simulator = new RobotSimulator();
-        var parser = new InputParser();
-        _runner = new SimulatorRunner(simulator, parser, default);
-    }
-    
     public static IEnumerable<object[]> GetTestCases()
     {
         yield return
@@ -74,7 +65,12 @@ public sealed class SimulatorIntegrationTests
     {
         using var inputReader = new StringReader(input);
         using var outputWriter = new StringWriter();
-        _runner.Run(inputReader, outputWriter);
+        
+        var simulator = new RobotSimulator();
+        var parser = new InputParser(outputWriter);
+        var runner = new SimulatorRunner(simulator, parser, default);
+        
+        runner.Run(inputReader);
         
         Assert.Equal(expected, outputWriter.ToString().TrimEnd()); // Remove default trailing newline \n from StringWriter
     }

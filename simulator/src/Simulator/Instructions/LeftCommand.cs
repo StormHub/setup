@@ -1,8 +1,8 @@
 using Simulator.Robots;
 
-namespace Simulator.Instructions.Commands;
+namespace Simulator.Instructions;
 
-internal record LeftCommand : ICommand
+internal record LeftCommand : IInstruction
 {
     public void Execute(Robot robot) => robot.TryTurnLeft();
 }

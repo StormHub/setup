@@ -1,5 +1,4 @@
-using Simulator.Instructions.Commands;
-using Simulator.Instructions.Queries;
+using Simulator.Instructions;
 
 namespace Simulator.Robots;
 
@@ -12,15 +11,13 @@ internal sealed class RobotSimulator
         _robot = new(new Table());
     }
 
-    public void Execute(params IEnumerable<ICommand> commands)
+    public void Execute(params IEnumerable<IInstruction> instructions)
     {
-        foreach (var command in commands)
+        foreach (var instruction in instructions)
         {
-            command.Execute(_robot);
+            instruction.Execute(_robot);
         }
     }
-
-    public string Query(IQuery query) => query.Execute(_robot);
 
     internal string Report() => _robot.Report();
 }

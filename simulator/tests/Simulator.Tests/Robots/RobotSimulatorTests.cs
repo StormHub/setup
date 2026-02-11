@@ -1,4 +1,4 @@
-using Simulator.Instructions.Commands;
+using Simulator.Instructions;
 using Simulator.Robots;
 
 namespace Simulator.Tests.Robots;

@@ -1,8 +1,8 @@
 using Simulator.Robots;
 
-namespace Simulator.Instructions.Commands;
+namespace Simulator.Instructions;
 
-internal record PlaceCommand(int X, int Y, Direction? Direction) : ICommand
+internal record PlaceCommand(int X, int Y, Direction? Direction) : IInstruction
 {
     public void Execute(Robot robot)
     {

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Simulator;
@@ -17,7 +17,7 @@ try
         .ConfigureServices((_, services) =>
         {
             services.AddTransient<RobotSimulator>();
-            services.AddTransient<InputParser>();
+            services.AddTransient(_ => new InputParser(Console.Out));
             services.AddTransient<SimulatorRunner>();
         })
         .Build();
@@ -32,7 +32,7 @@ try
     Console.WriteLine("Commands: PLACE X,Y,DIRECTION | PLACE X,Y | MOVE | LEFT | RIGHT | REPORT");
     Console.WriteLine();
     
-    consoleSimulator.Run(Console.In, Console.Out, lifetime.ApplicationStopping);
+    consoleSimulator.Run(Console.In, lifetime.ApplicationStopping);
     
     Console.WriteLine("Goodbye!");
 

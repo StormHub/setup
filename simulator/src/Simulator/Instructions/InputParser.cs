@@ -1,11 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-using Simulator.Instructions.Commands;
-using Simulator.Instructions.Queries;
 using Simulator.Robots;
 
 namespace Simulator.Instructions;
 
-internal sealed class InputParser
+internal sealed class InputParser(TextWriter output)
 {
     public bool TryParse(string input, [NotNullWhen(true)] out IInstruction? instruction)
     {
@@ -26,14 +24,14 @@ internal sealed class InputParser
             "MOVE" => new MoveCommand(),
             "LEFT" => new LeftCommand(),
             "RIGHT" => new RightCommand(),
-            "REPORT" => new ReportQuery(),
+            "REPORT" => new ReportQuery(output),
             _ => null
         };
 
         return instruction is not null;
     }
 
-    private static ICommand? ParsePlaceCommand(string arguments)
+    private static IInstruction? ParsePlaceCommand(string arguments)
     {
         var args = arguments.Split(',', StringSplitOptions.TrimEntries);
 
